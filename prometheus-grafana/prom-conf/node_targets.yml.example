@@ -1,0 +1,4 @@
+- targets:
+    - "host:port"
+  labels:
+    app: "label"

@@ -1,0 +1,25 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 30s
+  body_size_limit: 15MB
+  sample_limit: 1500
+  target_limit: 30
+  label_limit: 30
+  label_name_length_limit: 200
+  label_value_length_limit: 200
+
+scrape_configs:
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["localhost:9090"]
+        labels:
+          app: "prometheus"
+  - job_name: "node_exporter"
+    basic_auth:
+      username_file: /etc/prometheus/username
+      password_file: /etc/prometheus/password
+    file_sd_configs:
+      - files:
+          - "/etc/prometheus/node_targets.yml"
+        refresh_interval: 15s
