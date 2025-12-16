@@ -15,17 +15,23 @@
 PromQL запросы:
 
 - Утилизация CPU:
+  
    `clamp_min(100 - (avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100), 0)`
 
 - CPULA:
+  
   `(sum by (instance) (node_load1) / count by (instance) (node_cpu_seconds_total{mode="idle"})) * 100`
+  
   `(sum by (instance) (node_load5) / count by (instance) (node_cpu_seconds_total{mode="idle"})) * 100`
+  
   `(sum by (instance) (node_load15) / count by (instance) (node_cpu_seconds_total{mode="idle"})) * 100`
 
 - Свободная память:
+  
   `node_memory_MemAvailable_bytes / (1024^3)`
 
 - Количество места на файловой системе:
+  
   `node_filesystem_avail_bytes{mountpoint="/"} / (1024^3)`
 
 Получившийся дашборд:
